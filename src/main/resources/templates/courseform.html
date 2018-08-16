@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org" xmlns:sec="www.thymeleaf.org/extras/spring-security">
+<head>
+
+    <title>Title</title>
+    <th:block th:insert="base :: header"></th:block>
+</head>
+<body>
+<div th:replace="base :: navlinks"></div>
+<div class="container">
+<form action="#" th:action="@{/process}"
+      th:object="${course}"
+      method="post" class="form-horizontal">
+    <div class="form-group">
+    <input type="hidden" th:field="*{id}" />
+    Title:<input type="text" th:field="*{title}" class="form-control"/>
+    <span th:if="${#fields.hasErrors('title')}"
+          th:errors="*{title}"></span><br/>
+    Description:<textarea rows="3" th:field="*{description}" class="form-control"/>
+    <span th:if="${#fields.hasErrors('description')}"
+          th:errors="*{description}"></span><br/>
+    Credits:<input type="text" th:field="*{credit}" class="form-control"/>
+    <span th:if="${#fields.hasErrors('credit')}"
+          th:errors="*{credit}"></span><br/>
+    Instructor: <select name="instructorId" class="form-control" />
+    <option th:each="instructor : ${instructors}"
+            th:text="${instructor.firstName}"
+            th:value="${instructor.id}">
+    </option>
+</select>
+        <button type="submit" class="btn btn-default">Submit</button>
+    </div>
+</form>
+</div>
+</body>
+</html>

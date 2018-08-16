@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org" xmlns:sec="www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Title</title>
+    <th:block th:insert="base :: header"></th:block>
+</head>
+<body>
+<div th:replace="base :: navlinks"></div>
+        <h1>Add an Insturctor</h1>
+<div class="container">
+<form action="#" th:action="@{/process2}"
+      th:object="${instructor}"
+      method="post" enctype="multipart/form-data">
+    <input type="hidden" th:field="*{id}" />
+    First Name:<input type="text" th:field="*{firstName}" class="form-control" />
+    <span th:if="${#fields.hasErrors('firstName')}"
+          th:errors="*{title}"></span><br/>
+    Last Name:<input type="text" th:field="*{lastName}" class="form-control"/>
+    <span th:if="${#fields.hasErrors('lastName')}"
+          th:errors="*{lastName}"></span><br/>
+    Age:<input type="text" th:field="*{age}" class="form-control"/>
+    <span th:if="${#fields.hasErrors('age')}"
+          th:errors="*{age}"></span><br/>
+    Department:<input type="text" th:field="*{department}" class="form-control"/>
+    <span th:if="${#fields.hasErrors('department')}"
+          th:errors="*{department}"></span><br/>
+    <input type="file" name="file" /><br/></br>
+    <input type="submit" value="Submit"/>
+</form>
+</div>
+</body>
+</html>
