@@ -10,12 +10,15 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Map;
 
 @Controller
 public class HomeController {
     @Autowired
     CourseRepository courseRepository;
+    @Autowired
+    RoleRepository roleRepository;
 
     @Autowired
     InstructorRepository instructorRepository;
@@ -41,6 +44,8 @@ public class HomeController {
         if (result.hasErrors()) {
             return "registration";
         } else {
+            Role userRole = roleRepository.findByRole("USER");
+            user.setRoles(Arrays.asList(userRole));
             userService.saveUser(user);
             model.addAttribute("message",
                     "User Account Successfully Created");
@@ -122,6 +127,6 @@ public class HomeController {
             return "instructorform";
         }
         instructorRepository.save(instructor);
-        return "redirect:/list";
+        return "redirect:/add";
     }
 }
